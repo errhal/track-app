@@ -1,0 +1,9 @@
+<select>
+From:
+	<option ng-repeat="city in cities" value="">{{city.name}}</option>
+</select>
+<select>
+To:
+	<option ng-repeat="city in cities" value="">{{city.name}}</option>
+</select>
+

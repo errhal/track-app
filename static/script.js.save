@@ -1,0 +1,52 @@
+
+var trackApp = angular.module('trackApp', ['ngRoute']);
+
+    // configure our routes
+    trackApp.config(function($routeProvider) {
+        $routeProvider
+
+        	// route for the home page
+   		.when('/', {
+                	templateUrl : '/static/home.html',
+                	controller  : 'trackController'
+            	})
+		.when('/routes',{
+			templateUrl : '/static/routes.html',
+			controller : 'routeController'
+		});
+		
+	});
+          
+
+	trackApp.controller('trackController', function($scope, $http) {	
+		var map;
+		$scope.from = '';
+		$scope.to = "";
+		function initMap() {
+  			map = new google.maps.Map(document.getElementById('map'), {
+    				center: {lat: -34.397, lng: 150.644},
+    				zoom: 8
+  			});
+		};
+		initMap();
+		$scope.cities = [];
+		$http.get("/api/cities").then(function(response) {
+			for (var i in response.data) {
+				$scope.cities.push(response.data[i]);
+			}
+			console.log($scope.cities);
+		});
+		$scope.message = 'Everyone come and see how good I look!';
+    		$scope.findTrack = function() {
+			console.log($scope.from);
+			console.log($scope.from._id+":"+$scope.to._id);
+			$http.post("/api/tracks", {"from": $scope.from, "to": $scope.to}).then(function(response){
+				console.log(response);
+			});
+		}
+	});
+
+	trackApp.controller('routeController', function($scope,$html) {
+		
+
+	});

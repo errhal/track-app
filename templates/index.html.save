@@ -1,0 +1,15 @@
+<html ng-app="trackApp">	
+	<head>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSyl8XTMur08HYra7Z9ARrjG5wFUsn3zY"></script>
+		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+		<script src="/static/script.js"></script>	
+	</head>
+
+	<body ng-controller="trackController">
+		<div id="main">
+			<div ng-view></div>
+		</div>	
+	</body>
+</html>

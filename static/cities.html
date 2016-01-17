@@ -1,0 +1,17 @@
+Dodaj nowe miasto:
+Nazwa: 
+<input ng-model="name"></input>
+Koordynaty:
+Szerokość geograficzna:
+<input ng-model="latitude"></input>
+Długość geograficzna:
+<input ng-model="longitude"></input>
+<button ng-click="autoGeo()">Wykryj współrzędne</button>
+<button ng-click="addCity()">Dodaj miasto</button>
+
+
+Edytuj istniejące miasta:
+<div ng-repeat="city in cities">
+{{city.name}}<input ng-model="route.distance"></input><button ng-click="removeCity(city._id)">Remove</button>
+</div>
+
