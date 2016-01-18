@@ -1,32 +1,20 @@
 
 <div><h3>Dodaj nowe połączenie:</h3></div> 
-<div class="row">
-	<div class="col-xs-3">Miasto początkowe</div>
-	<div class="col-xs-3">Miasto końcowe</div>
-	<div class="col-xs-3">Długość połączenia</div>
-	<div class="col-xs-3"></div>
-</div>
 
 <div class="row">
-	<div class="col-xs-3"><select class="form-control" ng-options="city._id as city.name for city in cities" ng-model="from"></select></div>
-	<div class="col-xs-3"><select class="form-control" ng-options="city._id as city.name for city in cities" ng-model="to"></select></div>
-	<div class="col-xs-3"><input class="form-control" ng-model="distance"></input></div>
-	<div class="col-xs-3"><button class="btn btn-primary btn-custom" ng-click="addRoute()">Dodaj</button></div>
+	<div class="col-sm-3"><div>Miasto początkowe</div><select class="form-control" ng-options="city._id as city.name for city in cities" ng-model="from"></select></div>
+	<div class="col-sm-3"><div>Miasto końcowe</div><select class="form-control" ng-options="city._id as city.name for city in cities" ng-model="to"></select></div>
+	<div class="col-sm-3"><div>Długość połączenia</div><input class="form-control" ng-model="distance"></input></div>
+	<div class="col-sm-3"><div>&nbsp;</div><button class="btn btn-primary btn-custom" ng-click="addRoute()">Dodaj</button></div>
 </div>
 
 
 <h3 class="edit-routes">Edytuj istniejące połączenia:</h3>
 
-<div class="row">
-        <div class="col-xs-3"><h4>Początek</h4></div>
-        <div class="col-xs-3"><h4>Koniec</h4></div>
-        <div class="col-xs-3"><h4>Długość połączenia</h4></div>
-        <div class="col-xs-3"></div>
-</div>
-
 <div ng-repeat="route in routes" class="row">
-	<div class="col-xs-3">{{getCityById(route.source)}}</div>
-	<div class="col-xs-3">{{getCityById(route.destination)}}</div>
-	<div class="col-xs-3"><input ng-model="route.distance"></input></div>
-	<div class="col-xs-3"><button ng-click="removeRoute(route._id)">Remove</button></div>
+	<div class="col-xs-2"><div>Początek</div><h4>{{getCityById(route.source)}}</h4></div>
+	<div class="col-xs-2"><div>Koniec</div><h4>{{getCityById(route.destination)}}</h4></div>
+	<div class="col-xs-2"><div>Długość połączenia</div><input class="form-control" ng-model="route.distance"></div>
+	<div class="col-xs-2"><div>&nbsp;</div><button class="btn btn-default" ng-click="updateRoute(route._id,route.distance)">Update</button></div>
+	<div class="col-xs-2"><div>&nbsp;</div><button class="btn btn-default" ng-click="removeRoute(route._id)">Remove</button></div>
 </div>

@@ -15,6 +15,11 @@ from werkzeug.debug import DebuggedApplication
 app.debug = True
 app.wsgi_app = DebuggedApplication(app.wsgi_app, True)
 
+app.config['MONGO_HOST'] = 'ds047355.mongolab.com'
+app.config['MONGO_PORT'] = '47355'
+app.config['MONGO_DBNAME'] = 'track-app'
+app.config['MONGO_USERNAME'] = 'admin'
+app.config['MONGO_PASSWORD'] = 'password'
 mongo = PyMongo(app)
 
 @app.route(app_url + '/' , methods = ['GET'])
@@ -38,13 +43,14 @@ def cities():
 	elif request.method == 'PUT':
 		req = request.get_data()
 		req = bson.json_util.loads(req)
-		print req[1]			
-		mongo.db.cities.update({"_id": req[0]},{'name': req[1]})
+		mongo.db.cities.update_one({"_id": req['_id']},{'$set': {'latitude': req['lat'], 'longitude': req['lng']}})
 		return 200
 	elif request.method == 'DELETE':
 		req = request.get_data()
 		req = bson.json_util.loads(req)
 		mongo.db.cities.remove({"_id":req['_id']})
+		mongo.routes.remove({"destination": req['_id']})
+		mongo.routes.remove({"source": req['_id']})
 		return "200"
 
 @app.route(app_url + '/api/routes', methods = ['GET','POST','PUT','DELETE'])
@@ -62,7 +68,10 @@ def routes():
 		req = bson.json_util.loads(request.get_data())
 		mongo.db.routes.remove({'_id': req['_id']})
 		return "200"
-		
+	elif request.method == "PUT":
+		req = bson.json_util.loads(request.get_data())
+		mongo.db.routes.update_one({'_id': req['_id'] },{'$set':{'distance': req['distance']}})
+
 
 @app.route(app_url + '/api/tracks', methods = ['GET','POST','PUT','DELETE'])
 def tracks():
@@ -71,7 +80,7 @@ def tracks():
 	elif request.method == "POST":
 		req = bson.json_util.loads(request.get_data())
 		if "from" not in req or "to" not in req or req["from"]=="" or req["to"] == "":
-			return "Wrong cities",400 
+			return "Wrong cities",400
 		src = req['from']
 		des = req['to']
 		nodes = {}
@@ -79,24 +88,23 @@ def tracks():
 		poprzednik = {}
 		q = Q.PriorityQueue()
 		for i in mongo.db.cities.find():
-			nodes.update({i['_id']: []})	
+			nodes.update({i['_id']: []})
 			if i['_id'] != src:
-				odl[i['_id']] = 110000000 
+				odl[i['_id']] = 110000000
 				q.put((odl[i['_id']] , i['_id']))
 			else:
 				odl[i['_id']] = 0
 				q.put((odl[i['_id']] , i['_id']))
 		for i in mongo.db.routes.find():
 			nodes[i['source']].append({i['destination']: i['distance']})
-			#nodes[i['destination']].append({i['source']: i['distance']})	
+			#nodes[i['destination']].append({i['source']: i['distance']})
 		while not q.empty():
 			el = q.get()
 			for x in nodes[el[1]]:
-				if odl[x.keys()[0]] >  odl[el[1]] + int(x.values()[0]): 
+				if odl[x.keys()[0]] >  odl[el[1]] + int(x.values()[0]):
 					poprzednik[x.keys()[0]] = el[1]
 					odl[x.keys()[0]] = odl[el[1]] + int(x.values()[0])
 					q.put((odl[x.keys()[0]] , x.keys()[0]))
-		print odl[des]
 		path = []
 		back = des
 		while 1:

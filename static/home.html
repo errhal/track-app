@@ -1,32 +1,26 @@
 <div id="map"></div>
 <div class="row">
-	<div class="col-xs-12"><h3>Wybierz cel i źródło podróży, a track-app znajdzie Ci najkrótszą drogę!</h3></div>
+	<div class="col-sm-12"><h3>Wybierz cel i źródło podróży, a track-app znajdzie Ci najkrótszą drogę!</h3></div>
 </div>
 <div class="row">
-	<div class="col-xs-2"></div>
-	<div class="col-xs-4">Miasto początkowe:</div>
-	<div class="col-xs-4">Miasto końcowe:</div>
-	<div class="col-xs-2"></div>
-</div>
-<div class="row">
-	<div class="col-xs-2"></div>
-	<div class="col-xs-4"><select class="form-control" ng-options="city._id as city.name for city in cities" ng-model="from"></select></div>
-	<div class="col-xs-4"><select class="form-control" ng-options="city._id as city.name for city in cities" ng-model="to"></select></div>
-	<div class="col-xs-2"></div>
+	<div class="col-sm-2"></div>
+	<div class="col-sm-4"><div>Miasto początkowe:</div><select class="form-control" ng-options="city._id as city.name for city in cities" ng-model="from"></select></div>
+	<div class="col-sm-4"><div>Miasto końcowe:</div><select class="form-control" ng-options="city._id as city.name for city in cities" ng-model="to"></select></div>
+	<div class="col-sm-2"></div>
 </div>
 <div class="row btn-custom-div">
-	<div class="col-xs-4"></div>
-	<div class="col-xs-4"><button class="btn btn-primary btn-custom" ng-click="findTrack()">Find your track</button></div>
-	<div class="col-xs-4"></div>
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4"><button class="btn btn-primary btn-custom" ng-click="findTrack()">Find your track</button></div>
+	<div class="col-sm-4"></div>
 </div>
 <div class="row btn-custom-div">
-	<div class="col-xs-10 text-center">
+	<div class="col-sm-10 text-center">
 		<h4>{{result}}</h4>
 	</div>
 </div>
 <div class="row btn-custom-div">
-	<div class="col-xs-3"></div>
-	<div class="col-xs-3"><a href="#routes" class="btn btn-default btn-custom" role="button">Zarządzaj trasami</a></div>
-	<div class="col-xs-3"><a href="#cities" class="btn btn-default btn-custom" role="button">Zarządzaj miastami</a></div>
-	<div class="col-xs-3"></div>
+	<div class="col-sm-3"></div>
+	<div class="col-sm-3"><a href="#routes" class="btn btn-default btn-custom" role="button">Zarządzaj trasami</a></div>
+	<div class="col-sm-3"><a href="#cities" class="btn btn-default btn-custom" role="button">Zarządzaj miastami</a></div>
+	<div class="col-sm-3"></div>
 </div>

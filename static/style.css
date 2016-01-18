@@ -1,6 +1,12 @@
 .edit-routes {
 	margin-top: 70px;
 }
+.margin-top {
+	margin-top:20px;
+}
+.margin-bottom {
+	margin-bottom: 20px;
+}
 .btn-custom {
 	width: 100%;
 }

@@ -1,17 +1,35 @@
-Dodaj nowe miasto:
-Nazwa: 
-<input ng-model="name"></input>
-Koordynaty:
-Szerokość geograficzna:
-<input ng-model="latitude"></input>
-Długość geograficzna:
-<input ng-model="longitude"></input>
-<button ng-click="autoGeo()">Wykryj współrzędne</button>
-<button ng-click="addCity()">Dodaj miasto</button>
-
-
-Edytuj istniejące miasta:
-<div ng-repeat="city in cities">
-{{city.name}}<input ng-model="route.distance"></input><button ng-click="removeCity(city._id)">Remove</button>
+<h3>Dodaj nowe miasto:</h3>
+<div class="row">
+	<div class="col-sm-3">Nazwa:</div>
+	<div class="col-sm-3"><input class="form-control" ng-model="name"></input></div>
+	<div class="col-sm-4"></div>
+</div>
+<div class="row margin-top">
+	<div class="col-sm-3"><h4>Koordynaty:</h4></div>
+</div>
+<div class="row margin-top">
+	<div class="col-sm-3">Szerokość geograficzna:</div>
+	<div class="col-sm-3"><input class="form-control" ng-model="latitude"></input></div>
+</div>
+<div class="row margin-top">
+	<div class="col-sm-3">Długość geograficzna:</div>
+	<div class="col-sm-3"><input class="form-control" ng-model="longitude"></input></div>
+</div>
+<div class="row margin-top">
+	<div class="col-sm-3">{{message}}</div>
+</div>
+<div class="row margin-top">
+	<div class="col-sm-3 margin-bottom"><button class="btn btn-default" ng-click="autoGeo()">Wykryj współrzędne</button></div>
+	<div class="col-sm-3"><button class="btn btn-primary" ng-click="addCity()">Dodaj miasto</button></div>
 </div>
 
+
+<h3 class="margin-top">Edytuj istniejące miasta:</h3>
+	
+<div class="row margin-bottom" ng-repeat="city in cities">
+	<div class="col-sm-2">{{city.name}}</div>
+	<div class="col-sm-3"><input class="form-control" ng-model="latitudes[city._id.$oid]"></div>
+	<div class="col-sm-3"><input class="form-control" ng-model="longitudes[city._id.$oid]"></div>
+	<div class="col-sm-2"><button class="btn btn-default" ng-click="updateCity(city._id,latitudes[city._id.$oid],longitudes[city._id.$oid])">Update</button></div>
+	<div class="col-sm-2"><button class="btn btn-default" ng-click="removeCity(city._id)">Remove</button></div>
+</div>
